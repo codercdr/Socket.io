@@ -18,5 +18,4 @@ io.sockets.on('connection',function(socket){
 		
 		callback(10);
 	});
-	
 }); 
