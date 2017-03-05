@@ -1,0 +1,56 @@
+<html>
+	<head>
+	</head>
+	<body>
+	
+	<h1>Welcome Şehri Alem Chat</h1>
+	
+	<!-- styles -->
+	<style type="text/css">
+		#content{
+		height:500px;
+		}
+	
+	</style>
+	
+	<!-- container -->
+	
+	<div id="chat">
+		<form>
+		<div id="content"></div>
+		<input id="txtMessage" type="text"/>
+		<input id="btnSend" type="submit" value="Gönder"/>
+		</form>
+	</div>
+	
+	<!-- script -->
+	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+	<script src="/socket.io/socket.io.js"></script>
+	
+	<script>
+
+		
+
+			var socket = io.connect();
+
+			var button = $('#btnSend');
+			var message = $('#txtMessage');
+			var content = $('#content');
+			var form = $("form");
+			 form.submit(function(){
+			 event.preventDefault();
+				console.log("mesaj gönderildi:" + message.val());
+				socket.emit('send message',message.val(),function(status){
+					alert(status)
+				});
+				message.val('');
+			 });
+			
+			socket.on('new message',function(data){
+				content.append(data + "<br/>");
+			});
+		
+	
+	</script>
+	</body>
+</html>
